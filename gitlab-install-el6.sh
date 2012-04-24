@@ -151,21 +151,18 @@ su - git -c "gl-setup -q /home/git/.ssh/id_rsa.pub"
 # I suspect that I need to punch ruby in the face.
 # Apparently my Great Aunt was called Ruby and she was a very nice lady.
 
-echo 'Insalling RVM' 
 
-curl -o /tmp/rvm-installer https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer
+echo "### Installing RVM and Ruby"
 
-sh /tmp/rvm-installer --branch stable
+# Instructions from https://rvm.io
+curl -L get.rvm.io | bash -s stable 
 
-# Source the RVM vars
-
+# Load RVM
 source /etc/profile.d/rvm.sh
 
-# Install Ruby via the RVM wrapper
-
-echo 'Installing Ruby' 
-
+# Install Ruby
 rvm install $RUBY_VERSION
+
 
 # Use thie ruby
 
