@@ -146,12 +146,6 @@ su - git -c "gl-setup -q /home/git/.ssh/id_rsa.pub"
 /bin/chmod 600 /home/git/.ssh/authorized_keys
 
 
-# Install Ruby using the RVM method.  This has caused me pain in the past.
-# The following is direct from the RVM doc set 
-# I suspect that I need to punch ruby in the face.
-# Apparently my Great Aunt was called Ruby and she was a very nice lady.
-
-
 echo "### Installing RVM and Ruby"
 
 # Instructions from https://rvm.io
@@ -163,26 +157,15 @@ source /etc/profile.d/rvm.sh
 # Install Ruby
 rvm install $RUBY_VERSION
 
-
-# Use thie ruby
-
-rvm use $RUBY_VERSION --default
-
-# Update the core Gems system (As root)
-
-echo ' Upgrading core Gems' 
-
-gem update --system --no-rdoc --no-ri
-
-# Install some core gems system wide
-
-echo ' System wide install of core gems' 
-
+# Install core gems
 gem install rails passenger rake bundler grit --no-rdoc --no-ri
 
+
 echo "### Install pip and pygments"
+
 yum install -y python-pip
 pip install pygments
+
 
 # Clone the gitlabHQ sources to our desired location
 
