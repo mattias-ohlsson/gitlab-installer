@@ -96,6 +96,7 @@ sed -i 's/0077/0007/g' /home/git/.gitolite.rc
 chmod 770 /home/git/repositories
 
 
+######## https://github.com/gitlabhq/gitlabhq_install
 # Righto - GitlabHQ and Gitolite integration stuff - We need for the user that runs the webserver to have access to the gitolite admin repo
 # we will be adding and removing permissions on this repo.   
 # We already have the git user who is the owner of the repo, so we clone his key to make life easier.
@@ -123,7 +124,7 @@ cp -f /home/git/.ssh/id_rsa* /var/www/.ssh/ && chown apache:apache /var/www/.ssh
 
 /bin/chown apache:apache -R /var/www/.ssh
 
-#END OS SETUP STUFF#
+######## END https://github.com/gitlabhq/gitlabhq_install
 
 
 echo "### Installing RVM and Ruby"
