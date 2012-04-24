@@ -148,14 +148,18 @@ yum install -y python-pip
 pip-python install pygments
 
 
-# Clone the gitlabHQ sources to our desired location
+echo "### Install GitLab"
 
-echo ' Installing GitlabHQ' 
-
+# Download code
 cd /var/www && git clone https://github.com/gitlabhq/gitlabhq.git
 
+# Install GitLab
 cd $GL_INSTALL_ROOT && bundle install
 
+
+echo "### Install Passenger Apache module"
+
+# Run the installer
 rvm all do passenger-install-apache2-module -a
 
 
