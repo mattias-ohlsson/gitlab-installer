@@ -183,15 +183,8 @@ echo ' System wide install of core gems'
 
 gem install rails passenger rake bundler grit --no-rdoc --no-ri
 
-# Install pip from the python thing - There are no pip packages for RHEL/CENTOS that I trust anyways.
-
-echo ' Installing Python requirements' 
-
-curl http://python-distribute.org/distribute_setup.py | python
-easy_install pip
-
-# Install Python Pygments - Allowing for some nice code highlighting??
-
+echo "### Install pip and pygments"
+yum install -y python-pip
 pip install pygments
 
 # Clone the gitlabHQ sources to our desired location
