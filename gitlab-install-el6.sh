@@ -92,7 +92,8 @@ su - git -c "gl-setup -q /home/git/.ssh/id_rsa.pub"
 # Change the umask (see whe gitlab wiki)
 sed -i 's/0077/0007/g' /home/git/.gitolite.rc
 
-# Change permissions on repositories
+# Change permissions on repositories and home (group access)
+chmod 750 /home/git
 chmod 770 /home/git/repositories
 
 
@@ -222,10 +223,6 @@ chown -R apache:apache $GL_INSTALL_ROOT
 
 # permit apache the ability to write gem files if needed..  To be reviewed.
 chown apache:root -R /usr/local/rvm/gems/
-
-# Allow group access the git home dir - Allows apache in the door
-chmod 770 /home/git/
-chmod go-w /home/git/
 
 # Slap selinux upside the head
 setenforce 0
