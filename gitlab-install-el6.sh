@@ -4,6 +4,9 @@
 # Define the public hostname
 export GL_HOSTNAME=$HOSTNAME
 
+# Define gitlab installation root
+export GL_INSTALL_ROOT=/var/www/gitlabhq
+
 # Define the version of ruby the environment that we are installing for
 export RUBY_VERSION=ruby-1.9.2-p290
 
@@ -175,7 +178,7 @@ cd /var/www && git clone https://github.com/gitlabhq/gitlabhq.git
 
 # Lets change to the git user, source the rvm crud again and execute bundle
 
-cd /var/www/gitlabhq && bundle install
+cd $GL_INSTALL_ROOT && bundle install
 
 # Exit back to root
 
@@ -200,7 +203,7 @@ chkconfig redis on
 # Lets build the DB and some other jazz
 # Do this as the apache user - else shit gets weird
 
-cd /var/www/gitlabhq
+cd $GL_INSTALL_ROOT
 
 source /etc/profile.d/rvm.sh
 
@@ -226,11 +229,11 @@ export PASSENGER_VERSION=`find /usr/local/rvm/gems/$RUBY_VERSION/gems -type d -n
 cat > /etc/httpd/conf.d/gitlabhq.conf << EOF
 <VirtualHost *:80>
     ServerName $GL_HOSTNAME
-    DocumentRoot /var/www/gitlabhq/public
+    DocumentRoot $GL_INSTALL_ROOT/public
     LoadModule passenger_module /usr/local/rvm/gems/$RUBY_VERSION/gems/passenger-$PASSENGER_VERSION/ext/apache2/mod_passenger.so
     PassengerRoot /usr/local/rvm/gems/$RUBY_VERSION/gems/passenger-$PASSENGER_VERSION
     PassengerRuby /usr/local/rvm/wrappers/$RUBY_VERSION/ruby
-    <Directory /var/www/gitlabhq/public>
+    <Directory $GL_INSTALL_ROOT/public>
         AllowOverride all
         Options -MultiViews
     </Directory>
@@ -243,7 +246,7 @@ NameVirtualHost *:80
 EOF
 
 # Ensure that apache owns all of gitlabhq - No shallower
-chown -R apache:apache /var/www/gitlabhq
+chown -R apache:apache $GL_INSTALL_ROOT
 
 # permit apache the ability to write gem files if needed..  To be reviewed.
 chown apache:root -R /usr/local/rvm/gems/
