@@ -172,12 +172,10 @@ echo "### Start and configure redis"
 chkconfig redis on
 
 
-# Lets build the DB and some other jazz
-# Do this as the apache user - else shit gets weird
+echo "### Configure GitLab"
 
+# Go to install root
 cd $GL_INSTALL_ROOT
-
-source /etc/profile.d/rvm.sh
 
 # Use SQLite
 cp config/database.yml.sqlite config/database.yml
@@ -188,8 +186,10 @@ cp config/gitlab.yml.example config/gitlab.yml
 # Change gitlabhq hostname to GL_HOSTNAME
 sed -i "s/host: localhost/host: $GL_HOSTNAME/g" config/gitlab.yml
 
+# Setup DB
 rvm all do rake db:setup RAILS_ENV=production
 rvm all do rake db:seed_fu RAILS_ENV=production
+
 
 ##
 # Finish the setup
