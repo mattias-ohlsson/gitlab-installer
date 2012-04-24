@@ -176,19 +176,11 @@ echo ' Installing GitlabHQ'
 
 cd /var/www && git clone https://github.com/gitlabhq/gitlabhq.git
 
-# Lets change to the git user, source the rvm crud again and execute bundle
-
 cd $GL_INSTALL_ROOT && bundle install
-
-# Exit back to root
 
 rvm all do passenger-install-apache2-module -a
 
-# Clean up after ourselves
 
-rm /tmp/rvm-installer
-
-echo 'DONE initial setup'
 
 
 ##
