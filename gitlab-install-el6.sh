@@ -4,6 +4,11 @@
 # Define the public hostname
 export GL_HOSTNAME=$HOSTNAME
 
+# Define the version of ruby the environment that we are installing for
+export RUBY_VERSION=ruby-1.9.2-p290
+
+# Define the rails environment that we are installing for
+export RAILS_ENV=production
 
 die()
 {
@@ -66,11 +71,6 @@ sudo \
 postfix \
 mysql-devel
 
-
-# Define the version of ruby and the environment that we are installing for
-
-export RUBY_VERSION=ruby-1.9.2-p290
-export RAILS_ENV=production 
 
 # Lets get some user and other general Admin shite out of the way.
 
