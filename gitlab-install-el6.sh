@@ -75,27 +75,23 @@ postfix \
 mysql-devel
 
 
-# Lets get some user and other general Admin shite out of the way.
+echo "### Create the git user and keys"
 
-# add a user, make them a system user - call them git.
-
-echo 'Creating the git user' 
+# Create the git user 
 /usr/sbin/adduser -r -m --shell /bin/bash --comment 'git version control' git
 
-# Create our ssh key as the git user - lets not mess with this too much
-
+# Create keys as the git user
 su - git -c 'ssh-keygen -q -N "" -t rsa -f ~/.ssh/id_rsa'
 
-# Ensure correct ownership
 
-/bin/chown git:git -R /home/git/.ssh 
+echo "### Set up Gitolite"
 
-# Make sure that the perms are correct against the .ssh dir
+# Run the installer as the git user
+su - git -c "gl-setup -q /home/git/.ssh/id_rsa.pub"
 
-/bin/chmod 0700 /home/git/.ssh
+# Change the umask (see whe gitlab wiki)
+sed -i 's/0077/0007/g' /home/git/.gitolite.rc
 
-
-# Exit from the git user once done
 
 # Righto - GitlabHQ and Gitolite integration stuff - We need for the user that runs the webserver to have access to the gitolite admin repo
 # we will be adding and removing permissions on this repo.   
@@ -125,19 +121,6 @@ cp -f /home/git/.ssh/id_rsa* /var/www/.ssh/ && chown apache:apache /var/www/.ssh
 /bin/chown apache:apache -R /var/www/.ssh
 
 #END OS SETUP STUFF#
-
-# Lets configure GitlabHQ and gitolite to do our bidding.  
-
-# Change the default umask in gitolite so that repos get created with permissions that allow apache to read them
-# Otherwise you will get issues with commits/code/whateveryouexpect not showing up.
-# N.B. We make this change against the *example*  config file. 
-sed -i 's/0077/0007/g' /usr/share/gitolite/conf/example.gitolite.rc
-
-# Do the heavy lifting.  Configure gitolite and make git the primary admin.
-
-echo 'Setting up Gitolite' 
-
-su - git -c "gl-setup -q /home/git/.ssh/id_rsa.pub"
 
 # Cause we are paranoid about ownership, pimp slap that shit.
   
