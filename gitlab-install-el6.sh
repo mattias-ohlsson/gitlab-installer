@@ -92,6 +92,9 @@ su - git -c "gl-setup -q /home/git/.ssh/id_rsa.pub"
 # Change the umask (see whe gitlab wiki)
 sed -i 's/0077/0007/g' /home/git/.gitolite.rc
 
+# Change permissions on repositories
+chmod 770 /home/git/repositories
+
 
 # Righto - GitlabHQ and Gitolite integration stuff - We need for the user that runs the webserver to have access to the gitolite admin repo
 # we will be adding and removing permissions on this repo.   
