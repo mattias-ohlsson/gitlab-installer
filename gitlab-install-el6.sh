@@ -163,16 +163,14 @@ echo "### Install Passenger Apache module"
 rvm all do passenger-install-apache2-module -a
 
 
+echo "### Start and configure redis"
 
-
-##
-#  Database setup
-#
-
-# Before we do anything, make sure that redis is started
-
+# Start redis
 /etc/init.d/redis start
+
+# Automatically start redis
 chkconfig redis on
+
 
 # Lets build the DB and some other jazz
 # Do this as the apache user - else shit gets weird
