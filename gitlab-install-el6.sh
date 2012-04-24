@@ -122,15 +122,6 @@ cp -f /home/git/.ssh/id_rsa* /var/www/.ssh/ && chown apache:apache /var/www/.ssh
 
 #END OS SETUP STUFF#
 
-# Cause we are paranoid about ownership, pimp slap that shit.
-  
-/bin/chown -R git:git /home/git/
-/bin/chmod 770 /home/git/repositories/
-/bin/chmod 770 /home/git/
-/bin/chmod 600 -R /home/git/.ssh/
-/bin/chmod 700 /home/git/.ssh/
-/bin/chmod 600 /home/git/.ssh/authorized_keys
-
 
 echo "### Installing RVM and Ruby"
 
