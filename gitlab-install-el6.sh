@@ -191,13 +191,12 @@ rvm all do rake db:setup RAILS_ENV=production
 rvm all do rake db:seed_fu RAILS_ENV=production
 
 
-##
-# Finish the setup
-#
+echo "### Configure Apache"
 
+# Get the passenger version
 export PASSENGER_VERSION=`find /usr/local/rvm/gems/$RUBY_VERSION/gems -type d -name "passenger*" | cut -d '-' -f 4`
 
-# Shove everything in to a vhost - I hate Passenger config in the main, it gets in my way
+# Create a config file for gitlab
 cat > /etc/httpd/conf.d/gitlabhq.conf << EOF
 <VirtualHost *:80>
     ServerName $GL_HOSTNAME
@@ -216,6 +215,7 @@ EOF
 cat > /etc/httpd/conf.d/enable-virtual-hosts.conf << EOF
 NameVirtualHost *:80
 EOF
+
 
 # Ensure that apache owns all of gitlabhq - No shallower
 chown -R apache:apache $GL_INSTALL_ROOT
