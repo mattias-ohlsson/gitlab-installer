@@ -11,3 +11,7 @@ die()
   printf >&2 "%s\n" "$@"
   exit $retcode
 }
+
+
+echo "### Check OS (we check if the kernel release contains el6)"
+uname -r | grep "edl6" || die 1 "Not RHEL or CentOS"
