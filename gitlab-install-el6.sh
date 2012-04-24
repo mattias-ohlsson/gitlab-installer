@@ -164,7 +164,7 @@ gem install rails passenger rake bundler grit --no-rdoc --no-ri
 echo "### Install pip and pygments"
 
 yum install -y python-pip
-pip install pygments
+pip-python install pygments
 
 
 # Clone the gitlabHQ sources to our desired location
