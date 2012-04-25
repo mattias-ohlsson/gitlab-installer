@@ -212,9 +212,15 @@ chown -R apache:apache $GL_INSTALL_ROOT
 # permit apache the ability to write gem files if needed..  To be reviewed.
 chown apache:root -R /usr/local/rvm/gems/
 
-# Slap selinux upside the head
-setenforce 0
+
+echo "### Configure SELinux"
+
+# Disable SELinux 
 sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+
+# Turn off SELinux in this session
+setenforce 0
+
 
 # Mod iptables - Allow port 22 and 80 in
 sed -i '/--dport 22/ a\-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT' /etc/sysconfig/iptables
