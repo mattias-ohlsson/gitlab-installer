@@ -299,7 +299,7 @@ if [ "$GL_DATABASE_TYPE" != "sqlite" ]; then
   echo "#"
 fi
 echo "# Point your browser to: 
-echo "# http://$GL_HOSTNAME (or: http://<host-ip>)
+echo "# http://$GL_HOSTNAME (or: http://<host-ip>)"
 echo "# Default admin username: admin@local.host"
 echo "# Default admin password: 5iveL!fe"
 echo "#"
