@@ -112,6 +112,9 @@ cp /home/git/.ssh/id_rsa* /var/www/.ssh/
 # Apache will take ownership
 chown apache:apache -R /var/www/.ssh
 
+# Add the git group to apache
+usermod -G git apache
+
 
 echo "### Installing RVM and Ruby"
 
