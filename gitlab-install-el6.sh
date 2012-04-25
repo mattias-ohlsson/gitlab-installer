@@ -6,6 +6,8 @@
 #
 # Submit issues here: github.com/mattias-ohlsson/gitlab-installer
 
+# Define the database type (sqlite or mysql (default))
+export GL_DATABASE_TYPE=mysql
 
 # Define the public hostname
 export GL_HOSTNAME=$HOSTNAME
@@ -18,6 +20,10 @@ export RUBY_VERSION=ruby-1.9.2-p290
 
 # Define the rails environment that we are installing for
 export RAILS_ENV=production
+
+# Define MySQL root password (we need it if we want mysql)
+MYSQL_ROOT_PW=$(cat /dev/urandom | tr -cd [:alnum:] | head -c ${1:-16})
+
 
 die()
 {
@@ -180,9 +186,6 @@ echo "### Configure GitLab"
 # Go to install root
 cd $GL_INSTALL_ROOT
 
-# Use SQLite
-cp config/database.yml.sqlite config/database.yml
-
 # Rename config files
 cp config/gitlab.yml.example config/gitlab.yml
 
@@ -194,6 +197,34 @@ sed -i "s/from: notify@gitlabhq.com/from: notify@$GL_HOSTNAME/g" config/gitlab.y
 
 # Use localhost to relay mail
 sed -i "s/host: gitlabhq.com/host: localhost/g" config/gitlab.yml
+
+# Check database type
+if [ "$GL_DATABASE_TYPE" = "sqlite" ]; then
+  # Use SQLite
+  echo "... using sqlite"
+  cp config/database.yml.sqlite config/database.yml
+else
+  # Use MySQL
+  echo "... using mysql"
+
+  # Install mysql-server
+  yum install -y mysql-server
+
+  # Turn on autostart
+  chkconfig mysqld on
+
+  # Start mysqld
+  service mysqld start
+
+  # Copy congiguration
+  cp config/database.yml.example config/database.yml
+
+  # Set MySQL root password in configuration file
+  sed -i "s/secure password/$MYSQL_ROOT_PW/g" config/database.yml
+
+  # Set MySQL root password in MySQL
+  echo "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PW') WHERE User='root'; FLUSH PRIVILEGES;" | mysql -u root
+fi
 
 # Setup DB
 rvm all do rake db:setup RAILS_ENV=production
@@ -257,3 +288,20 @@ chkconfig httpd on
 
 # Start Apache
 service httpd start
+
+
+echo "### Done ###"
+echo "#"
+if [ "$GL_DATABASE_TYPE" != "sqlite" ]; then
+  # Print MySQL root password instructions
+  echo "# You have your MySQL root password in this file:"
+  echo "# $GL_INSTALL_ROOT/config/database.yml"
+  echo "#"
+fi
+echo "# Point your browser to:" 
+echo "# http://$GL_HOSTNAME (or: http://<host-ip>)"
+echo "# Default admin username: admin@local.host"
+echo "# Default admin password: 5iveL!fe"
+echo "#"
+echo "# Flattr me if you like this! https://flattr.com/profile/mattiasohlsson"
+echo "###"
