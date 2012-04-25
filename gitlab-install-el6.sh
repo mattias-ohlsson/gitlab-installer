@@ -222,11 +222,10 @@ cat > /etc/httpd/conf.d/enable-virtual-hosts.conf << EOF
 NameVirtualHost *:80
 EOF
 
-
-# Ensure that apache owns all of gitlabhq - No shallower
+# Ensure that apache owns all of gitlabhq
 chown -R apache:apache $GL_INSTALL_ROOT
 
-# permit apache the ability to write gem files if needed..  To be reviewed.
+# Apache needs access to gems (?)
 chown apache:root -R /usr/local/rvm/gems/
 
 
