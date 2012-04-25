@@ -225,7 +225,7 @@ setenforce 0
 echo "### Configure iptables"
 
 # Open port 80
-iptables -I INPUT -p tcp -m tcp --dport 8980 -j ACCEPT
+iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 
 # Save iptables
 service iptables save
