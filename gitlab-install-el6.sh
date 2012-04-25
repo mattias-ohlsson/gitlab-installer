@@ -97,35 +97,20 @@ chmod 750 /home/git
 chmod 770 /home/git/repositories
 
 
-######## https://github.com/gitlabhq/gitlabhq_install
-# Righto - GitlabHQ and Gitolite integration stuff - We need for the user that runs the webserver to have access to the gitolite admin repo
-# we will be adding and removing permissions on this repo.   
-# We already have the git user who is the owner of the repo, so we clone his key to make life easier.
-# This may not be best practice - but y'know without being too complex this is functional.
+echo "### Set up Gitolite access for Apache"
+# Shoplifted from github.com/gitlabhq/gitlabhq_install
 
-# Apache may have to run some things in a shell.  I hate this
-
-echo 'providing apache with a ssh key and permissions to the repositories' 
-
-/usr/sbin/usermod -s /bin/bash -d /var/www/ -G git apache
-
-# Create the keydir for the webserver user (apache)
-
+# Create the ssh folder
 mkdir /var/www/.ssh
 
-# Copy the git users key, chown that stuff
+# Use ssh-keyscan to skip host verification problem
+ssh-keyscan localhost > /var/www/.ssh/known_hosts
 
-cp -f /home/git/.ssh/id_rsa* /var/www/.ssh/ && chown apache:apache /var/www/.ssh/id_rsa* && chmod 600 /var/www/.ssh/id_rsa*
+# Copy keys from the git user 
+cp /home/git/.ssh/id_rsa* /var/www/.ssh/
 
-# As we will be looping back to localhost only, we grab the local key to avoid issues when its unattended.
-
-/usr/bin/sudo -u apache ssh-keyscan localhost >> /var/www/.ssh/known_hosts
-
-# Apparently we like to be sure who owns what.
-
-/bin/chown apache:apache -R /var/www/.ssh
-
-######## END https://github.com/gitlabhq/gitlabhq_install
+# Apache will take ownership
+chown apache:apache -R /var/www/.ssh
 
 
 echo "### Installing RVM and Ruby"
