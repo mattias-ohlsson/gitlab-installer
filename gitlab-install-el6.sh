@@ -222,11 +222,14 @@ sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 setenforce 0
 
 
-# Mod iptables - Allow port 22 and 80 in
-sed -i '/--dport 22/ a\-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT' /etc/sysconfig/iptables
+echo "### Configure iptables"
 
-#Restart iptables.
-service iptables restart
+# Open port 80
+iptables -I INPUT -p tcp -m tcp --dport 8980 -j ACCEPT
+
+# Save iptables
+service iptables save
+
 
 # Add httpd to start and start the service
 chkconfig httpd on
