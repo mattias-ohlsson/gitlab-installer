@@ -74,8 +74,16 @@ libicu-devel \
 gitolite \
 redis \
 sudo \
-postfix \
 mysql-devel
+
+
+echo "### Install and start postfix"
+
+# Install postfix
+yum install -y postfix
+
+# Start postfix
+service postfix start
 
 
 echo "### Create the git user and keys"
