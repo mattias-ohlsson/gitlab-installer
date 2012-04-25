@@ -1,5 +1,8 @@
 #!/bin/bash
 # Installer for GitLab on RHEL 6 (Red Hat Enterprise Linux and CentOS)
+# mattias.ohlsson@inprose.com
+#
+# Submit issues here: github.com/mattias-ohlsson/gitlab-installer
 
 # Define the public hostname
 export GL_HOSTNAME=$HOSTNAME
