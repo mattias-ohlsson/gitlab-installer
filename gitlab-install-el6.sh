@@ -6,6 +6,8 @@
 #
 # Submit issues here: github.com/mattias-ohlsson/gitlab-installer
 
+# Define the database type (sqlite or mysql (default))
+export GL_DATABASE_TYPE=mysql
 
 # Define the public hostname
 export GL_HOSTNAME=$HOSTNAME
@@ -18,6 +20,10 @@ export RUBY_VERSION=ruby-1.9.2-p290
 
 # Define the rails environment that we are installing for
 export RAILS_ENV=production
+
+# Define MySQL root password (we need it if we want mysql)
+MYSQL_ROOT_PW=$(cat /dev/urandom | tr -cd [:alnum:] | head -c ${1:-16})
+
 
 die()
 {
