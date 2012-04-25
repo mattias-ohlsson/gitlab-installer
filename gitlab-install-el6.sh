@@ -186,9 +186,6 @@ echo "### Configure GitLab"
 # Go to install root
 cd $GL_INSTALL_ROOT
 
-# Use SQLite
-cp config/database.yml.sqlite config/database.yml
-
 # Rename config files
 cp config/gitlab.yml.example config/gitlab.yml
 
@@ -200,6 +197,34 @@ sed -i "s/from: notify@gitlabhq.com/from: notify@$GL_HOSTNAME/g" config/gitlab.y
 
 # Use localhost to relay mail
 sed -i "s/host: gitlabhq.com/host: localhost/g" config/gitlab.yml
+
+# Check database type
+if [ "$GL_DATABASE_TYPE" = "sqlite" ]; then
+  # Use SQLite
+  echo "... using sqlite"
+  cp config/database.yml.sqlite config/database.yml
+else
+  # Use MySQL
+  echo "... using mysql"
+
+  # Install mysql-server
+  yum install -y mysql-server
+
+  # Turn on autostart
+  chkconfig mysqld on
+
+  # Start mysqld
+  service mysqld start
+
+  # Copy congiguration
+  cp config/database.yml.example config/database.yml
+
+  # Set MySQL root password in configuration file
+  sed -i "s/secure password/$MYSQL_ROOT_PW/g" config/database.yml
+
+  # Set MySQL root password in MySQL
+  echo "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PW') WHERE User='root'; FLUSH PRIVILEGES;" | mysql -u root
+fi
 
 # Setup DB
 rvm all do rake db:setup RAILS_ENV=production
