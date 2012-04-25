@@ -231,6 +231,10 @@ iptables -I INPUT -p tcp -m tcp --dport 8980 -j ACCEPT
 service iptables save
 
 
-# Add httpd to start and start the service
+echo "### Start Apache"
+
+# Start on boot
 chkconfig httpd on
+
+# Start Apache
 service httpd start
