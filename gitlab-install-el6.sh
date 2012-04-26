@@ -160,7 +160,7 @@ pip-python install pygments
 echo "### Install GitLab"
 
 # Download code
-cd /var/www && git clone https://github.com/gitlabhq/gitlabhq.git
+cd /var/www && git clone -b stable https://github.com/gitlabhq/gitlabhq.git
 
 # Install GitLab
 cd $GL_INSTALL_ROOT && bundle install
