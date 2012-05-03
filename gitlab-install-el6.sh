@@ -15,6 +15,9 @@ export GL_HOSTNAME=$HOSTNAME
 # Define gitlab installation root
 export GL_INSTALL_ROOT=/var/www/gitlabhq
 
+# Install from this GitLab branch
+export GL_INSTALL_BRANCH=stable
+
 # Define the version of ruby the environment that we are installing for
 export RUBY_VERSION=ruby-1.9.2-p290
 
@@ -160,7 +163,7 @@ pip-python install pygments
 echo "### Install GitLab"
 
 # Download code
-cd /var/www && git clone -b stable https://github.com/gitlabhq/gitlabhq.git
+cd /var/www && git clone -b $GL_INSTALL_BRANCH https://github.com/gitlabhq/gitlabhq.git
 
 # Install GitLab
 cd $GL_INSTALL_ROOT && bundle install
