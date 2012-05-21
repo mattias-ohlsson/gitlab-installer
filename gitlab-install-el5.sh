@@ -81,7 +81,6 @@ zlib-devel \
 httpd-devel \
 apr-devel \
 apr-util-devel \
-sqlite-devel \
 libicu-devel \
 gitolite \
 redis \
