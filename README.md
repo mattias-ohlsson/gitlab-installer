@@ -7,9 +7,13 @@ gitlab-installer
 - MySQL or SQLite database (defaulting to MySQL)
 - Localhost mail relay
 
-### Install ###
+### Install on EL6 ###
 
     curl https://raw.github.com/mattias-ohlsson/gitlab-installer/master/gitlab-install-el6.sh | bash
+
+### Install on EL5 ###
+
+    curl https://raw.github.com/mattias-ohlsson/gitlab-installer/master/gitlab-install-el5.sh | bash
 
 ### Check status (diagnostic) ###
 
