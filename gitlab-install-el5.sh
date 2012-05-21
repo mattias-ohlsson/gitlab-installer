@@ -88,6 +88,10 @@ redis \
 sudo \
 mysql-devel
 
+# Install sqlite-devel from atrpms
+rpm -Uvh http://dl.atrpms.net/el5-x86_64/atrpms/testing/sqlite-3.6.20-1.el5.x86_64.rpm
+rpm -Uvh http://dl.atrpms.net/el5-x86_64/atrpms/testing/sqlite-devel-3.6.20-1.el5.x86_64.rpm
+
 
 echo "### Install and start postfix"
 
