@@ -41,7 +41,7 @@ die()
 
 
 echo "### Check OS (we check if the kernel release contains el6)"
-uname -r | grep "el6" || die 1 "Not RHEL or CentOS"
+uname -r | grep "el5" || die 1 "Not RHEL or CentOS"
 
 
 echo "### Check if we are root"
