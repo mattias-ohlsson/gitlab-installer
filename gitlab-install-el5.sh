@@ -40,7 +40,7 @@ die()
 }
 
 
-echo "### Check OS (we check if the kernel release contains el6)"
+echo "### Check OS (we check if the kernel release contains el5)"
 uname -r | grep "el5" || die 1 "Not RHEL or CentOS"
 
 
