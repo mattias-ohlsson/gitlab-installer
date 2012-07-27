@@ -112,7 +112,7 @@ echo "### Set up Gitolite"
 # Run the installer as the git user
 su - git -c "gl-setup -q /home/git/.ssh/id_rsa.pub"
 
-# Change the umask (see whe gitlab wiki)
+# Change the umask (see the gitlab wiki)
 sed -i 's/0077/0007/g' /home/git/.gitolite.rc
 
 # Change permissions on repositories and home (group access)
