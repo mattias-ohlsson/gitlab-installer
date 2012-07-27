@@ -148,8 +148,8 @@ curl -L get.rvm.io | bash -s stable
 # Load RVM
 source /etc/profile.d/rvm.sh
 
-# Install Ruby
-rvm install $RUBY_VERSION
+# Install Ruby (full path to force non-interactive mode)
+$rvm_path/bin/rvm install $RUBY_VERSION
 
 # Install core gems
 gem install rails passenger rake bundler grit --no-rdoc --no-ri
