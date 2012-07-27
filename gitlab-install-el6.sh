@@ -194,7 +194,7 @@ cd $GL_INSTALL_ROOT
 cp config/gitlab.yml.example config/gitlab.yml
 
 # Change gitlabhq hostname to GL_HOSTNAME
-sed -i "s/host: localhost/host: $GL_HOSTNAME/g" config/gitlab.yml
+sed -i "s/  host: localhost/  host: $GL_HOSTNAME/g" config/gitlab.yml
 
 # Change the from email address
 sed -i "s/from: notify@localhost/from: notify@$GL_HOSTNAME/g" config/gitlab.yml
