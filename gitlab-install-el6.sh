@@ -84,6 +84,7 @@ apr-util-devel \
 sqlite-devel \
 libicu-devel \
 gitolite \
+git \
 redis \
 sudo \
 mysql-devel
