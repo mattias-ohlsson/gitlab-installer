@@ -197,7 +197,7 @@ cp config/gitlab.yml.example config/gitlab.yml
 sed -i "s/host: localhost/host: $GL_HOSTNAME/g" config/gitlab.yml
 
 # Change the from email address
-sed -i "s/from: notify@gitlabhq.com/from: notify@$GL_HOSTNAME/g" config/gitlab.yml
+sed -i "s/from: notify@localhost/from: notify@$GL_HOSTNAME/g" config/gitlab.yml
 
 # Change hostname in e-mail links to GL_HOSTNAME
 sed -i "s/host: gitlabhq.com/host: $GL_HOSTNAME/g" config/gitlab.yml
