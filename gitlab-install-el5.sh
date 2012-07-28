@@ -48,6 +48,15 @@ echo "### Check if we are root"
 [[ $EUID -eq 0 ]] || die 1 "This script must be run as root"
 
 
+echo "### Configure SELinux"
+
+# Disable SELinux 
+sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+
+# Turn off SELinux in this session
+setenforce 0
+
+
 echo "### Installing packages"
 
 # Install epel-release
@@ -269,15 +278,6 @@ chown -R apache:apache $GL_INSTALL_ROOT
 
 # Apache needs access to gems (?)
 chown apache:root -R /usr/local/rvm/gems/
-
-
-echo "### Configure SELinux"
-
-# Disable SELinux 
-sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
-
-# Turn off SELinux in this session
-setenforce 0
 
 
 echo "### Configure iptables"
