@@ -83,11 +83,12 @@ apr-devel \
 apr-util-devel \
 libicu-devel \
 gitolite \
+git \
 redis \
 sudo \
 mysql-devel
 
-# Install sqlite-devel from atrpms
+# Install sqlite-devel from atrpms (sqlite > 3.3 is not provided by epel or centos)
 rpm -Uvh http://dl.atrpms.net/el5-x86_64/atrpms/testing/sqlite-3.6.20-1.el5.x86_64.rpm
 rpm -Uvh http://dl.atrpms.net/el5-x86_64/atrpms/testing/sqlite-devel-3.6.20-1.el5.x86_64.rpm
 
@@ -144,14 +145,18 @@ usermod -G git apache
 
 echo "### Installing RVM and Ruby"
 
+# rvm requirements tell us to do this
+yum install -y gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2
+
 # Instructions from https://rvm.io
 curl -L get.rvm.io | bash -s stable 
 
 # Load RVM
 source /etc/profile.d/rvm.sh
 
-# Install Ruby
-rvm install $RUBY_VERSION
+# Install Ruby (use command to force non-interactive mode)
+command rvm install $RUBY_VERSION
+rvm use $RUBY_VERSION
 
 # Install core gems
 gem install rails passenger rake bundler grit --no-rdoc --no-ri
@@ -196,13 +201,10 @@ cd $GL_INSTALL_ROOT
 cp config/gitlab.yml.example config/gitlab.yml
 
 # Change gitlabhq hostname to GL_HOSTNAME
-sed -i "s/host: localhost/host: $GL_HOSTNAME/g" config/gitlab.yml
+sed -i "s/  host: localhost/  host: $GL_HOSTNAME/g" config/gitlab.yml
 
 # Change the from email address
-sed -i "s/from: notify@gitlabhq.com/from: notify@$GL_HOSTNAME/g" config/gitlab.yml
-
-# Change hostname in e-mail links to GL_HOSTNAME
-sed -i "s/host: gitlabhq.com/host: $GL_HOSTNAME/g" config/gitlab.yml
+sed -i "s/from: notify@localhost/from: notify@$GL_HOSTNAME/g" config/gitlab.yml
 
 # Check database type
 if [ "$GL_DATABASE_TYPE" = "sqlite" ]; then
