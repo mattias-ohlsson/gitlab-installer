@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installer for GitLab on RHEL 6 (Red Hat Enterprise Linux and CentOS)
+# Installer for GitLab on RHEL 5 (Red Hat Enterprise Linux and CentOS)
 # mattias.ohlsson@inprose.com
 #
 # Only run this on a clean machine. I take no responsibility for anything.
