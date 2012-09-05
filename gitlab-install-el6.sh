@@ -157,6 +157,15 @@ echo "### Installing RVM and Ruby"
 # rvm requirements tell us to do this
 yum install -y gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2
 
+# Requirements for gem install capybara-webkit
+# install devel packages for qt and qtwebkit
+yum install qt-devel qtwebkit-devel -y
+# add qmake to path
+case $(uname -m) in
+  x86_64) export PATH=$PATH:/usr/lib64/qt4/bin/ ;;
+  *) export PATH=$PATH:/usr/lib/qt4/bin/ ;;
+esac
+
 # Instructions from https://rvm.io
 curl -L get.rvm.io | bash -s stable 
 
