@@ -6,6 +6,9 @@
 #
 # Submit issues here: github.com/mattias-ohlsson/gitlab-installer
 
+# Exit on error
+set -e
+
 # Define the database type (sqlite or mysql (default))
 export GL_DATABASE_TYPE=mysql
 
