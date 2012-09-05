@@ -258,7 +258,7 @@ rvm all do rake db:seed_fu RAILS_ENV=production
 
 # Setup gitlab hooks
 cp ./lib/hooks/post-receive /home/git/.gitolite/hooks/common/
-/home/git/.gitolite/hooks/common/post-receive
+chown git:git /home/git/.gitolite/hooks/common/post-receive
 
 
 echo "### Configure Apache"
