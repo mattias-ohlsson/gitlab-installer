@@ -144,7 +144,8 @@ echo "### Set up Gitolite access for Apache"
 mkdir /var/www/.ssh
 
 # Use ssh-keyscan to skip host verification problem
-ssh-keyscan localhost > /var/www/.ssh/known_hosts
+# add types (-t) to fix this error: localhost doesn't support ssh1
+ssh-keyscan -t rsa1,rsa,dsa localhost > /var/www/.ssh/known_hosts
 
 # Copy keys from the git user 
 cp /home/git/.ssh/id_rsa* /var/www/.ssh/
