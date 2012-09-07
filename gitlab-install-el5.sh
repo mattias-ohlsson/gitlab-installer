@@ -172,6 +172,7 @@ gpgcheck=1
 enabled=0
 EOF
 rpm --import http://packages.atrpms.net/RPM-GPG-KEY.atrpms
+yum remove libX11 -y
 yum --enablerepo=atrpms-testing install qt47-webkit-devel -y
 yum --enablerepo=atrpms-testing update sqlite -y
 export QMAKE=/usr/bin/qmake-qt47
