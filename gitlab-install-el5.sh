@@ -161,13 +161,19 @@ echo "### Installing RVM and Ruby"
 yum install -y gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2
 
 # Requirements for gem install capybara-webkit
-# install devel packages for qt and qtwebkit
-yum install qt-devel qtwebkit-devel -y
-# add qmake to path
-case $(uname -m) in
-  x86_64) export PATH=$PATH:/usr/lib64/qt4/bin/ ;;
-  *) export PATH=$PATH:/usr/lib/qt4/bin/ ;;
-esac
+# install devel packages for qt and qtwebkit from ATrpms
+cat > /etc/yum.repos.d/atrpms-testing.repo << EOF
+[atrpms-testing]
+name=EL $releasever - $basearch - ATrpms
+baseurl=http://dl.atrpms.net/el$releasever-$basearch/atrpms/testing
+gpgkey=http://ATrpms.net/RPM-GPG-KEY.atrpms
+gpgcheck=1
+enabled=0
+EOF
+rpm --import http://packages.atrpms.net/RPM-GPG-KEY.atrpms
+yum --enablerepo=atrpms-testing install qt47-webkit-devel -y
+yum --enablerepo=atrpms-testing update sqlite -y
+export QMAKE=/usr/bin/qmake-qt47
 
 # Instructions from https://rvm.io
 curl -L get.rvm.io | bash -s stable 
