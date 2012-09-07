@@ -17,6 +17,7 @@ export GL_HOSTNAME=$HOSTNAME
 
 # Define gitlab installation root
 export GL_INSTALL_ROOT=/var/www/gitlabhq
+baseurl=http://dl.atrpms.net/el$releasever-$basearch/atrpms/testing
 
 # Install from this GitLab branch
 export GL_INSTALL_BRANCH=stable
@@ -164,8 +165,8 @@ yum install -y gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-dev
 # install devel packages for qt and qtwebkit from ATrpms
 cat > /etc/yum.repos.d/atrpms-testing.repo << EOF
 [atrpms-testing]
-name=EL $releasever - $basearch - ATrpms
-baseurl=http://dl.atrpms.net/el$releasever-$basearch/atrpms/testing
+name=EL \$releasever - \$basearch - ATrpms
+baseurl=http://dl.atrpms.net/el\$releasever-\$basearch/atrpms/testing
 gpgkey=http://ATrpms.net/RPM-GPG-KEY.atrpms
 gpgcheck=1
 enabled=0
