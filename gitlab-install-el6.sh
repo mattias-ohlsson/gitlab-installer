@@ -99,7 +99,8 @@ gitolite \
 git \
 redis \
 sudo \
-mysql-devel
+mysql-devel \
+rvm
 
 
 echo "### Install and start postfix"
