@@ -99,7 +99,8 @@ gitolite \
 git \
 redis \
 sudo \
-mysql-devel
+mysql-devel \
+postgresql-devel
 
 # Install sqlite-devel from atrpms (sqlite > 3.3 is not provided by epel or centos)
 rpm -Uvh http://dl.atrpms.net/el5-$(uname -i)/atrpms/testing/sqlite-3.6.20-1.el5.$(uname -i).rpm
