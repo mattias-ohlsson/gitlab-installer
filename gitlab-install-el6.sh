@@ -244,7 +244,7 @@ else
   service mysqld start
 
   # Copy congiguration
-  cp config/database.yml.example config/database.yml
+  cp config/database.yml.mysql config/database.yml
 
   # Set MySQL root password in configuration file
   sed -i "s/secure password/$MYSQL_ROOT_PW/g" config/database.yml
