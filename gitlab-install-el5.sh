@@ -52,13 +52,13 @@ echo "### Check if we are root"
 [[ $EUID -eq 0 ]] || die 1 "This script must be run as root"
 
 
-echo "### Configure SELinux"
+# echo "### Configure SELinux"
 
-# Disable SELinux 
-sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+# # Disable SELinux 
+# sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 
-# Turn off SELinux in this session
-setenforce 0
+# # Turn off SELinux in this session
+# setenforce 0
 
 
 echo "### Installing packages"
