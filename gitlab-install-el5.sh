@@ -23,7 +23,7 @@ baseurl=http://dl.atrpms.net/el$releasever-$basearch/atrpms/testing
 export GL_INSTALL_BRANCH=stable
 
 # Define the version of ruby the environment that we are installing for
-export RUBY_VERSION=ruby-1.9.2-p290
+export RUBY_VERSION=ruby-1.9.3-p362
 
 # Define the rails environment that we are installing for
 export RAILS_ENV=production
