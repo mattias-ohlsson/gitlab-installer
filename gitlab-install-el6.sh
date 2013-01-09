@@ -19,10 +19,10 @@ export GL_HOSTNAME=$HOSTNAME
 export GL_INSTALL_ROOT=/var/www/gitlabhq
 
 # Install from this GitLab branch
-export GL_INSTALL_BRANCH=stable
+export GL_INSTALL_BRANCH=stableb
 
 # Define the version of ruby the environment that we are installing for
-export RUBY_VERSION=ruby-1.9.2-p290
+export RUBY_VERSION=ruby-1.9.3-p362
 
 # Define the rails environment that we are installing for
 export RAILS_ENV=production
@@ -51,19 +51,19 @@ echo "### Check if we are root"
 [[ $EUID -eq 0 ]] || die 1 "This script must be run as root"
 
 
-echo "### Configure SELinux"
+# echo "### Configure SELinux"
 
-# Disable SELinux 
-sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+# # Disable SELinux 
+# sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 
-# Turn off SELinux in this session
-setenforce 0
+# # Turn off SELinux in this session
+# setenforce 0
 
 
 echo "### Installing packages"
 
 # Install epel-release
-rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-7.noarch.rpm
+rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
 # Modified list from gitlabhq
 yum install -y \
@@ -244,7 +244,7 @@ else
   service mysqld start
 
   # Copy congiguration
-  cp config/database.yml.example config/database.yml
+  cp config/database.yml.mysql config/database.yml
 
   # Set MySQL root password in configuration file
   sed -i "s/secure password/$MYSQL_ROOT_PW/g" config/database.yml

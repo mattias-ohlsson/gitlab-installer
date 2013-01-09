@@ -23,7 +23,7 @@ baseurl=http://dl.atrpms.net/el$releasever-$basearch/atrpms/testing
 export GL_INSTALL_BRANCH=stable
 
 # Define the version of ruby the environment that we are installing for
-export RUBY_VERSION=ruby-1.9.2-p290
+export RUBY_VERSION=ruby-1.9.3-p362
 
 # Define the rails environment that we are installing for
 export RAILS_ENV=production
@@ -52,19 +52,19 @@ echo "### Check if we are root"
 [[ $EUID -eq 0 ]] || die 1 "This script must be run as root"
 
 
-echo "### Configure SELinux"
+# echo "### Configure SELinux"
 
-# Disable SELinux 
-sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+# # Disable SELinux 
+# sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 
-# Turn off SELinux in this session
-setenforce 0
+# # Turn off SELinux in this session
+# setenforce 0
 
 
 echo "### Installing packages"
 
 # Install epel-release
-rpm -Uvh http://mirrors.kernel.org/fedora-epel/5/i386/epel-release-5-4.noarch.rpm
+rpm -Uvh http://mirrors.kernel.org/fedora-epel/5/x86_64/epel-release-5-4.noarch.rpm
 
 # Modified list from gitlabhq
 yum install -y \
