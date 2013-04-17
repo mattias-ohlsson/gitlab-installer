@@ -19,7 +19,6 @@ export RUBY_VERSION="1.9.3-p392"
 MYSQL_ROOT_PW=$(cat /dev/urandom | tr -cd [:alnum:] | head -c ${1:-16})
 
 # Exit on error
-set -e
 
 die()
 {
