@@ -161,6 +161,11 @@ su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
 chmod +x /etc/init.d/gitlab
 
+## Fix for issue 30
+# bundle not in path (edit init-script).
+# Add after ". /etc/rc.d/init.d/functions" (row 17).
+sed -i "17 a source /etc/profile.d/rvm.sh\nrvm use $RUBY_VERSION" /etc/init.d/gitlab
+
 ### Enable and start
 chkconfig gitlab on
 service gitlab start
