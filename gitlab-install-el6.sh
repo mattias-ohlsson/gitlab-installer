@@ -155,9 +155,8 @@ yum -y install mysql-devel
 su git -c "bundle install --deployment --without development test postgres"
 
 # Initialise Database and Activate Advanced Features
-# We need expect for silet install (issue 31)
-yum install -y expect
-su git -c "expect -c \"spawn bundle exec rake gitlab:setup RAILS_ENV=production; expect \\"Do you want to continue (yes/no)?\\"; send \\"yes\\";\""
+export force=yes
+su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 
 ## Install init script
 curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
