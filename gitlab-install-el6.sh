@@ -202,7 +202,7 @@ service iptables save
 echo "### Done ###############################################"
 echo "#"
 echo "# You have your MySQL root password in this file:"
-echo "# $GL_INSTALL_ROOT/config/database.yml"
+echo "# /home/git/gitlab/config/database.yml"
 echo "#"
 echo "# Point your browser to:" 
 echo "# http://$GL_HOSTNAME (or: http://<host-ip>)"
