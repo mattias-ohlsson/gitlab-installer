@@ -155,6 +155,8 @@ yum -y install mysql-devel
 su git -c "bundle install --deployment --without development test postgres"
 
 # Initialise Database and Activate Advanced Features
+# Force it to be silent (issue 31)
+export force=yes
 su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 
 ## Install init script
