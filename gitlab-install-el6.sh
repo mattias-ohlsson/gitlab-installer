@@ -58,7 +58,7 @@ rvm pkg install libyaml
 
 ## Install Ruby (use command to force non-interactive mode)
 command rvm install $RUBY_VERSION --with-libyaml-dir=/usr/local/rvm/usr
-rvm use $RUBY_VERSION
+rvm --default use $RUBY_VERSION
 
 ## Install core gems
 gem install bundler
@@ -78,7 +78,7 @@ su - git -c "cp gitlab-shell/config.yml.example gitlab-shell/config.yml"
 sed -i "s/localhost/$GL_HOSTNAME/g" /home/git/gitlab-shell/config.yml
 
 ## Run setup
-su - git -c "rvm use 1.9.3-p392;gitlab-shell/bin/install"
+su - git -c "gitlab-shell/bin/install"
 
 ### Fix wrong mode bits
 chmod 600 /home/git/.ssh/authorized_keys
