@@ -10,7 +10,7 @@
 export GL_HOSTNAME=$HOSTNAME
 
 # Install from this GitLab branch
-export GL_GIT_BRANCH="5-0-stable"
+export GL_GIT_BRANCH="5-2-stable"
 
 # Define the version of ruby the environment that we are installing for
 export RUBY_VERSION="1.9.3-p392"
