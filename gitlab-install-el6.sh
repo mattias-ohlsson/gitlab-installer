@@ -171,6 +171,9 @@ chmod +x /etc/init.d/gitlab
 # Add after ". /etc/rc.d/init.d/functions" (row 17).
 sed -i "17 a source /etc/profile.d/rvm.sh\nrvm use $RUBY_VERSION" /etc/init.d/gitlab
 
+## Install unicorn (issue 38)
+gem install unicorn
+
 ### Enable and start
 chkconfig gitlab on
 service gitlab start
