@@ -17,7 +17,7 @@ gitlab-installer
 
 ### Check status (diagnostic) ###
 
-    su -s /bin/bash apache -c 'bundle exec rake gitlab:app:status RAILS_ENV=production'
+    su - git -c "cd gitlab;bundle exec rake gitlab:check RAILS_ENV=production"
 
 ### Donate if you like it ###
 
