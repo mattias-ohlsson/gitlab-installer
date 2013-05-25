@@ -75,7 +75,6 @@ su - git -c "git clone https://github.com/gitlabhq/gitlab-shell.git"
 
 ## Edit configuration
 su - git -c "cp gitlab-shell/config.yml.example gitlab-shell/config.yml"
-sed -i "s/localhost/$GL_HOSTNAME/g" /home/git/gitlab-shell/config.yml
 
 ## Run setup
 su - git -c "gitlab-shell/bin/install"
