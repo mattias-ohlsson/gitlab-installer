@@ -144,6 +144,10 @@ su git -c "cp config/database.yml.mysql config/database.yml"
 ### Set MySQL root password in configuration file
 sed -i "s/secure password/$MYSQL_ROOT_PW/g" config/database.yml
 
+### Configure git user
+su git -c 'git config --global user.name  "GitLab"'
+su git -c 'git config --global user.email "gitlab@$GL_HOSTNAME"'
+
 # Install Gems
 
 ## Install Charlock holmes
