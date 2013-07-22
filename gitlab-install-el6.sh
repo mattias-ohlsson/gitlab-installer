@@ -34,9 +34,17 @@ die()
 echo "### Check OS (we check if the kernel release contains el6)"
 uname -r | grep "el6" || die 1 "Not RHEL or CentOS 6 (el6)"
 
-# Install base packages
-yum -y install git
+# Install git newer version
+yum -y install perl-ExtUtils-MakeMaker
+cd /usr/local/src/
+wget https://www.kernel.org/pub/software/scm/git/git-1.8.3.3.tar.gz
+tar xzvf git-1.8.3.3.tar.gz 
+cd git-1.8.3.3
+make prefix=/usr/local all
+# yum -y remove git
+make prefix=/usr/local install
 
+# Install base packages
 ## Install epel-release
 yum -y install http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 
