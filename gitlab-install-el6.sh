@@ -10,7 +10,7 @@
 export GL_HOSTNAME=$HOSTNAME
 
 # Install from this GitLab branch
-export GL_GIT_BRANCH="5-2-stable"
+export GL_GIT_BRANCH="5-4-stable"
 
 # Define the version of ruby the environment that we are installing for
 export RUBY_VERSION="1.9.3-p392"
@@ -124,6 +124,12 @@ cd /home/git/gitlab
 ### Copy the example GitLab config
 su git -c "cp config/gitlab.yml.example config/gitlab.yml"
 
+### Copy the example Puma config
+su git -c "cp config/puma.rb.example config/puma.rb"
+
+### Create the tmp/sockets directory for Gitlab
+su git -c "mkdir -p tmp/sockets"
+
 ### Change gitlabhq hostname to GL_HOSTNAME
 sed -i "s/  host: localhost/  host: $GL_HOSTNAME/g" config/gitlab.yml
 
@@ -161,6 +167,11 @@ su git -c "bundle install --deployment --without development test postgres"
 # Force it to be silent (issue 31)
 export force=yes
 su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
+
+# Initialise Gitlab-shell
+# Force it to be silent (issue 31)
+export force=yes
+su git -c "bundle exec rake gitlab:shell:setup RAILS_ENV=production"
 
 ## Install init script
 curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
