@@ -163,7 +163,7 @@ export force=yes
 su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 
 ## Install init script
-curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
+curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init/sysvinit/centos/gitlab-unicorn
 chmod +x /etc/init.d/gitlab
 
 ## Fix for issue 30
@@ -207,7 +207,7 @@ echo "#"
 echo "# You have your MySQL root password in this file:"
 echo "# /home/git/gitlab/config/database.yml"
 echo "#"
-echo "# Point your browser to:" 
+echo "# Point your browser to:"
 echo "# http://$GL_HOSTNAME (or: http://<host-ip>)"
 echo "# Default admin username: admin@local.host"
 echo "# Default admin password: 5iveL!fe"
