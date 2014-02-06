@@ -50,14 +50,8 @@ curl -L get.rvm.io | bash -s stable
 ## Load RVM
 source /etc/profile.d/rvm.sh
 
-## Fix for missing psych
-## *It seems your ruby installation is missing psych (for YAML output).
-## *To eliminate this warning, please install libyaml and reinstall your ruby.
-## Run rvm pkg and add --with-libyaml-dir
-rvm pkg install libyaml
-
 ## Install Ruby (use command to force non-interactive mode)
-command rvm install $RUBY_VERSION --with-libyaml-dir=/usr/local/rvm/usr
+command rvm install $RUBY_VERSION 
 rvm --default use $RUBY_VERSION
 
 ## Install core gems
