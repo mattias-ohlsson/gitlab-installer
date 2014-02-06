@@ -34,6 +34,10 @@ die()
 echo "### Check OS (we check if the kernel release contains el6)"
 uname -r | grep "el6" || die 1 "Not RHEL or CentOS 6 (el6)"
 
+# Disable selinux
+setenforce 0
+sed -i "s/SELINUX=enforcing/SELINUX=permissive/g" /etc/sysconfig/selinux
+
 # Install base packages
 yum -y install git
 
